@@ -1,0 +1,11 @@
+Model Information:
+* title:	2003 Porsche 911 Carrera 4
+* source:	https://sketchfab.com/3d-models/2003-porsche-911-carrera-4-7c847690e28f4172876b967a4ecacc55
+* author:	Connections XR (https://sketchfab.com/connectionsxr)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "2003 Porsche 911 Carrera 4" (https://sketchfab.com/3d-models/2003-porsche-911-carrera-4-7c847690e28f4172876b967a4ecacc55) by Connections XR (https://sketchfab.com/connectionsxr) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Clouds
+* source:	https://sketchfab.com/3d-models/clouds-116f49c23c4347eba340d0f59b0601f7
+* author:	farhad.Guli (https://sketchfab.com/farhad.Guli)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Clouds" (https://sketchfab.com/3d-models/clouds-116f49c23c4347eba340d0f59b0601f7) by farhad.Guli (https://sketchfab.com/farhad.Guli) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
