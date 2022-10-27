@@ -21,7 +21,7 @@ scene.add( light );
 
 
 const pointLight = new THREE.PointLight('white', 1)
-pointLight.position.x = 250
+pointLight.position.x = 200
 pointLight.position.y = 0
 pointLight.position.z = 0
 pointLight.castShadow = true;
@@ -72,20 +72,20 @@ const views = [
     }
 ];
 
-for ( let i = 0; i < views.length; ++ i ) {
+// for ( let i = 0; i < views.length; ++ i ) {
 
-    const view = views[ i ];
-    const camera = view.camera ;
-    camera.position.set(view.position[0],view.position[1],view.position[2]);
-    camera.lookAt( view.lookAt[0],view.lookAt[1],view.lookAt[2]);
-    scene.add(camera)
-    view.camera = camera;
-    if(i == 0){
-        const controls = new THREE.OrbitControls(camera, canvas)
-        controls.enableDamping = true
-    }
+//     const view = views[ i ];
+//     const camera = view.camera ;
+//     camera.position.set(view.position[0],view.position[1],view.position[2]);
+//     camera.lookAt( view.lookAt[0],view.lookAt[1],view.lookAt[2]);
+//     scene.add(camera)
+//     view.camera = camera;
+//     if(i == 0){
+        // const controls = new THREE.OrbitControls(camera, canvas)
+        // controls.enableDamping = true
+//     }
     
-}
+// }
 
 
 
@@ -114,12 +114,14 @@ window.addEventListener('resize', () =>
 // Base camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 2000)
 camera.position.x = 0
-camera.position.y = 300
-camera.position.z = 150
+camera.position.y = 200
+camera.position.z = 200
 scene.add(camera)
 
-// Controls
 
+// Controls
+const controls = new THREE.OrbitControls(camera, canvas)
+controls.enableDamping = true
 
 // Axes Helper
 const axesHelper = new THREE.AxesHelper( 500 );
@@ -139,7 +141,7 @@ renderer.shadowMap.enabled =true;
 let loader = new THREE.TextureLoader();
 
 let gltfLoader = new THREE.GLTFLoader();
-const total_cars = 1;
+const total_cars = 3;
 let cars = [[undefined , 1],[undefined , 7] , [undefined , 5]];
 function car_on_road(){
     gltfLoader.load('model/white/scene.gltf', function(gltf){
@@ -150,23 +152,23 @@ function car_on_road(){
     scene.add(gltf.scene);
 
     });
-    // gltfLoader.load('model/orange/scene.gltf', function(gltf){
-    //     cars[1][0] = gltf.scene.children[0];
-    //     cars[1][0].castShadow = true;
-    //     cars[1][0].scale.set(3,3,3);
-    //     cars[1][0].position.set(-4 ,1,-100);
-    //     scene.add(gltf.scene);
+    gltfLoader.load('model/orange/scene.gltf', function(gltf){
+        cars[1][0] = gltf.scene.children[0];
+        cars[1][0].castShadow = true;
+        cars[1][0].scale.set(3,3,3);
+        cars[1][0].position.set(-4 ,1,-100);
+        scene.add(gltf.scene);
     
-    // });
-    // gltfLoader.load('model/blue/scene.gltf', function(gltf){
-    //     cars[2][0] = gltf.scene.children[0];
-    //     cars[2][0].castShadow = true;
-    //     cars[2][0].scale.set(0.3,0.3,0.3);
-    //     cars[2][0].position.set(-40 ,1,4);
-    //     // cars[2][0].rotation.z = Math.PI/2;
-    //     scene.add(gltf.scene);
+    });
+    gltfLoader.load('model/blue/scene.gltf', function(gltf){
+        cars[2][0] = gltf.scene.children[0];
+        cars[2][0].castShadow = true;
+        cars[2][0].scale.set(0.3,0.3,0.3);
+        cars[2][0].position.set(-40 ,1,4);
+        // cars[2][0].rotation.z = Math.PI/2;
+        scene.add(gltf.scene);
     
-    // });
+    });
 }
 
 
@@ -200,7 +202,7 @@ function clouds(){
 const areaX = 250 , areaZ = 250;
 const total_areaX = 450 , total_areaZ = 450;
 const plane_geometry = new THREE.PlaneGeometry( total_areaX, total_areaZ , 500,500);
-const plane_material = new THREE.MeshPhongMaterial( {
+const plane_material = new THREE.MeshLambertMaterial( {
     // color: 0x07f707, 
     side: THREE.DoubleSide,
     map : loader.load('texture/mountain-texture6.png'),
@@ -346,14 +348,18 @@ let pathStartWidth = roadStartWidth +  width_of_footpath;
 let pathEndWidth = roadEndWidth - width_of_footpath;
 console.log(pathStartWidth)
 console.log(pathEndWidth)
-let buildingTexture = loader.load('texture/building-texture.webp');
+let buildingTexture = loader.load('texture/building-texture1.jpeg');
 // x = -ve and z = -ve
 function create_Buildings(){
     const n_buildings_per_quadrant = 20;
-    const material = new THREE.MeshStandardMaterial( {map: buildingTexture} );
+    const material = new THREE.MeshPhongMaterial( {
+        map: buildingTexture,
+        // color : 'black',
+        // wireframe: true
+    } );
     for(let i  = 0 ; i < n_buildings_per_quadrant ;i++){
         
-        let h = randomInt(20,50) , w =  randomInt(10,30) , d =randomInt(10,30);
+        let h = randomInt(10,30) , w =  20 , d =20;
         const geometry = new THREE.BoxGeometry( w, h, d );
         
         const cube = new THREE.Mesh( geometry, material );
@@ -440,7 +446,9 @@ btn.addEventListener('click' , function(e){
     }
     else{
         btn.textContent = 'Start Barish';
-        
+        for(let i = 0 ; i < rain_particles ;i++){
+            scene.remove(barish.particles[i]);
+        }
         
         // start_raining = false;
         raining_scene_off = true;
@@ -696,15 +704,13 @@ function tick()
         }
         else{
             scene.remove(raining_clouds[0]);
-            for(let i = 0 ; i < rain_particles ;i++){
-                scene.remove(barish.particles[i]);
-            }
+            
             raining_scene_off = false;
         }
     }
-    render();
+    // render();
 
-    // renderer.render(scene, camera)
+    renderer.render(scene, camera)
     
 }
 tick();
